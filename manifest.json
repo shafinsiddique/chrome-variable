@@ -3,11 +3,16 @@
     "name": "chrome-extension",
     "description": "a chrome extension for simplifying processes in forms.",
     "version": "1.0",
-    "browser_action": {
-     "default_icon": "icon.png",
-     "default_popup": "popup.html"
+    "background":{
+        "scripts":["background.js"],
+        "persistant":false
     },
-    "permissions": [
-     "activeTab"
+    "browser_action":{},
+    "content_scripts": [{
+        "matches": ["*://*/*"],
+        "all_frames": true,
+        "js":["popup.js"],
+        "run_at":"document_end"
+        }
      ]
   }
