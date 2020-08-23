@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded',function() {
     save.addEventListener('click', function() {
         tryStoreValue()
     })
+
+    var variables = document.getElementById("variables");
+    variables.addEventListener('click', () => chrome.tabs.create({ url: "variables.html" }))
 })
 
 function tryStoreValue() {
