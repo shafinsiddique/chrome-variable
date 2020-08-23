@@ -6,40 +6,26 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Pillar</title>
+    <title>Chrome Extension</title>
 
     <style>
-     .navbar a:hover {
-         color: blue;
-     }
-
-        .increase {
-            color: green;
-            font-weight: bold;
-        }
-
-        .decrease{
-            color: red;
-            font-weight: bold;
+        .container {
+            margin-top: 5px;
         }
     </style>
+    <script defer src="variables.js"></script>
 </head>
 <body>
-<div id="app">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">chrome-extension</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div id="navbarNavDropdown" class="navbar-collapse collapse">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-
-</div>
+    <div class="container">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Key</th>
+            <th scope="col">Value</th>
+          </tr>
+        </thead>
+      </table>
+      </div>
 </body>
 </html>
