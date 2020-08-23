@@ -25,6 +25,7 @@ function createRow(index, key, value) {
     return tRow
 
 }
+
 chrome.storage.sync.get(null, createRows)
 
 // var rows = getRowBody()
