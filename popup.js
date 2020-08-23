@@ -11,12 +11,17 @@ function tryStoreValue() {
     var value = form.elements.namedItem("value").value
     
     if (key != "" && value != "" ) {
-        sendOutput(true);
+        chrome.storage.sync.set({key: value}, () => sendOutput(true))
+        chrome.storage.sync.get("foo", getValues)
     }
 
     else {
         sendOutput(false)
     }
+}
+
+function getValues(items) {
+    console.log(JSON.stringify(items))
 }
 
 function sendOutput(valid) {
