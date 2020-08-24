@@ -22,16 +22,12 @@ function tryParse(element) {
 function tryReplace(element, starting, ending) {
     variableName = element.value.substring(starting+1, ending)
     chrome.storage.sync.get(variableName, function(result) {
-        replace(element, result);
+        var key_value = Object.entries(result)[0]
+        if (key_value != undefined) {
+            element.value = element.value.substring(0, starting) + key_value[1] + element.value.substring(ending+1, 
+                element.value.length-1)
+        }
     } )
-}
-
-function replace(element, result) {
-    var key_value = Object.entries(result)[0]
-    if (key_value != undefined) {
-        element.value = key_value[1]
-    }
-    
 }
 
 var forms = document.querySelectorAll('form')
