@@ -1,3 +1,39 @@
+function tryModifyInput(element, event){ 
+    if (event.key == ".") {
+        tryParse(element);         
+    }
+}
+
+function tryParse(element) {
+    i = 0
+    while (i < element.value.length) {
+        if (element.value[i] == "<") {
+            j = i+1
+            while (j < element.value.length && element.value[j]!= ">") { j += 1 }
+            if (j  != element.value.length) { tryReplace(element, i, j) }
+            i = j+1
+        }
+        else {
+            i += 1
+        }
+    }
+}
+
+function tryReplace(element, starting, ending) {
+    variableName = element.value.substring(starting+1, ending)
+    chrome.storage.sync.get(variableName, function(result) {
+        replace(element, result);
+    } )
+}
+
+function replace(element, result) {
+    var key_value = Object.entries(result)[0]
+    if (key_value != undefined) {
+        element.value = key_value[1]
+    }
+    
+}
+
 var forms = document.querySelectorAll('form')
 
 for (x=0; x<forms.length; x++) {
@@ -8,14 +44,10 @@ for (x=0; x<forms.length; x++) {
 
         try {
             element.addEventListener('keyup', function(e) {
-                if (this.value == "test") {
-                    this.value = "Hello!"
-                }
+                tryModifyInput(this, e)
             })
         }
-
         catch {
-            console.log("error")
         }
     }
 }
