@@ -9,19 +9,30 @@ function createRows(items) {
 
     table.appendChild(tbody)
 }
+function onEdit() {
+    console.log("edit button pressed")
+}
 
 function createRow(index, key, value) {
     var tRow = document.createElement("tr");
+    // tRow.onmouseover(() => console.log("hello"))
     var idCol = document.createElement("td")
     idCol.innerText = index
-    tRow.appendChild(idCol)
+    // tRow.appendChild(idCol)
     var keyCol = document.createElement("td")
     keyCol.innerText = key
     tRow.appendChild(keyCol)
     var valCol = document.createElement("td")
     valCol.innerText = value;
     tRow.appendChild(valCol)
+    var button = document.createElement("button")
+    button.setAttribute("id","edit-button")
+    button.setAttribute("type","button")
+    button.classList.add("btn")
+    button.classList.add("btn-link")
 
+    button.innerText = "Edit"
+    tRow.appendChild(button)
     return tRow
 
 }
