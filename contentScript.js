@@ -30,20 +30,44 @@ function tryReplace(element, starting, ending) {
     } )
 }
 
-var forms = document.querySelectorAll('form')
-
-for (x=0; x<forms.length; x++) {
-    form = forms[x];
-
-    for (y = 0; y<form.elements.length; y++) {
-        element = form.elements[y]
-
+function addListenerToType(type) {
+    var elements = document.querySelectorAll(type)
+    console.log(elements.length)
+    for (x=0;x<elements.length; x++) {
+        element = elements[x]
         try {
             element.addEventListener('keyup', function(e) {
                 tryModifyInput(this, e)
             })
         }
         catch {
+
+        }
+
+        }
+}
+
+function addListenersToTypes(types) {
+    types.forEach(type => addListenerToType(type))
+}
+
+var types = ["input","textarea"]
+var lengths = types.map(type => document.querySelectorAll(type).length)
+addListenersToTypes(types)
+window.setInterval(onInterval, 7000)
+
+function onInterval() {
+    console.log("running on interval")
+    var new_lengths = types.map(type => document.querySelectorAll(type).length)
+    for (x=0; x<new_lengths.length; x++) {
+        if (new_lengths[x] != lengths[x]) {
+            lengths[x] = new_lengths[x]
+            addListenerToType(types[x])
+
         }
     }
+
 }
+
+
+
