@@ -1,40 +1,48 @@
 function tryModifyInput(element, event){ 
     if (event.key == ".") {
-        console.log(element.value)
         tryParse(element);         
     }
 }
 
-function tryParse(element) {
+async function tryParse(element) {
     i = 0
+    handled = false
     while (i < element.value.length) {
-        console.log("inside loop")
         if (element.value[i] == "<") {
             j = i+1
             while (j < element.value.length && element.value[j]!= ">") { j += 1 }
-            if (j  != element.value.length) { tryReplace(element, i, j) }
-            i = j+1
+            if (j  != element.value.length) { 
+                await tryReplace(element, i, j)
+                console.log(element.value) 
+            }
+            handled = true
         }
-        else {
-            i += 1
-        }
+        i += 1
+    }
+
+    if (handled && element.value[element.value.length-1] == ".") {
+        element.value = element.value.substring(0, element.value.length-1)
     }
 }
 
-function tryReplace(element, starting, ending) {
+function getValue(key) {
+    return new Promise((resolve) => {
+        chrome.storage.sync.get(key, function(result) {
+            resolve(result)
+        })
+    })
+}
+
+async function tryReplace(element, starting, ending) {
     variableName = element.value.substring(starting+1, ending)
     alreadyReplaced = false
-    chrome.storage.sync.get(variableName, function(result) {
-        console.log("variable name:  " + variableName)
-        console.log("element name: " + element.value)
-        var key_value = Object.entries(result)[0]
-        if (key_value != undefined && !alreadyReplaced) {
-            new_value = element.value.substring(0, starting) + key_value[1] + element.value.substring(ending+1, 
-                element.value.length-1)
-                element.value = new_value
-                alreadyReplaced = true
-        }
-    })
+    var value = await getValue(variableName)
+    var key_value = Object.entries(value)[0]
+    if (key_value != undefined && !alreadyReplaced){ 
+        alreadyReplaced = true
+        element.value = element.value.substring(0, starting) + key_value[1] + element.value.substring(ending+1, 
+            element.value.length)
+    }
 }
 
 function addListenerToType(type) {
@@ -56,7 +64,6 @@ function addListenerToType(type) {
 function addListenersToTypes(types) {
     types.forEach(type => addListenerToType(type))
 }
-
 var types = ["input","textarea", "[contenteditable=true]"]
 var lengths = types.map(type => document.querySelectorAll(type).length)
 addListenersToTypes(types)
@@ -68,7 +75,6 @@ function onInterval() {
         if (new_lengths[x] != lengths[x]) {
             lengths[x] = new_lengths[x]
             addListenerToType(types[x])
-
         }
     }
 

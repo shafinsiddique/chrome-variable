@@ -3,7 +3,6 @@ function createRows(items) {
     var tbody = document.createElement("tbody");
     var pairs = Object.entries(items);
     for (x=0;x<pairs.length; x++) {
-        console.log(pairs[x][0])
         tbody.appendChild(createRow(x+1, pairs[x][0], pairs[x][1]))
     }
 
@@ -15,10 +14,8 @@ function onEdit() {
 
 function createRow(index, key, value) {
     var tRow = document.createElement("tr");
-    // tRow.onmouseover(() => console.log("hello"))
     var idCol = document.createElement("td")
     idCol.innerText = index
-    // tRow.appendChild(idCol)
     var keyCol = document.createElement("td")
     keyCol.innerText = key
     tRow.appendChild(keyCol)
@@ -30,7 +27,6 @@ function createRow(index, key, value) {
     button.setAttribute("type","button")
     button.classList.add("btn")
     button.classList.add("btn-link")
-
     button.innerText = "Edit"
     tRow.appendChild(button)
     return tRow
