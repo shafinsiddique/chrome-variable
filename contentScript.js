@@ -1,13 +1,14 @@
 function tryModifyInput(element, event){ 
     if (event.key == ".") {
+        console.log(element.value)
         tryParse(element);         
     }
 }
 
 function tryParse(element) {
-    console.log(JSON.stringify(element))
     i = 0
     while (i < element.value.length) {
+        console.log("inside loop")
         if (element.value[i] == "<") {
             j = i+1
             while (j < element.value.length && element.value[j]!= ">") { j += 1 }
@@ -22,13 +23,18 @@ function tryParse(element) {
 
 function tryReplace(element, starting, ending) {
     variableName = element.value.substring(starting+1, ending)
+    alreadyReplaced = false
     chrome.storage.sync.get(variableName, function(result) {
+        console.log("variable name:  " + variableName)
+        console.log("element name: " + element.value)
         var key_value = Object.entries(result)[0]
-        if (key_value != undefined) {
-            element.value = element.value.substring(0, starting) + key_value[1] + element.value.substring(ending+1, 
+        if (key_value != undefined && !alreadyReplaced) {
+            new_value = element.value.substring(0, starting) + key_value[1] + element.value.substring(ending+1, 
                 element.value.length-1)
+                element.value = new_value
+                alreadyReplaced = true
         }
-    } )
+    })
 }
 
 function addListenerToType(type) {
@@ -36,7 +42,7 @@ function addListenerToType(type) {
     for (x=0;x<elements.length; x++) {
         element = elements[x]
         try {
-            element.addEventListener('keyup', function(e) {
+            element.addEventListener('keydown', function(e) {
                 tryModifyInput(this, e)
             })
         }
