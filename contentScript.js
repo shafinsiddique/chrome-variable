@@ -1,21 +1,19 @@
 function tryModifyInput(element, event){ 
     if (event.key == ".") {
-        console.log("event key pressed: " + event.key)
         tryParse(element);         
     }
 }
 
 async function tryParse(element) {
     i = 0
-    handled = false
+    var handled
     while (i < element.value.length) {
         if (element.value[i] == "<") {
             j = i+1
             while (j < element.value.length && element.value[j]!= ">") { j += 1 }
             if (j  != element.value.length) { 
-                await tryReplace(element, i, j)
+                handled = await tryReplace(element, i, j)
             }
-            handled = true
         }
         i += 1
     }
@@ -42,7 +40,9 @@ async function tryReplace(element, starting, ending) {
         alreadyReplaced = true
         element.value = element.value.substring(0, starting) + key_value[1] + element.value.substring(ending+1, 
             element.value.length)
+            return true
     }
+    return false
 }
 
 function addListenerToType(type) {
