@@ -71,6 +71,7 @@ addListenersToTypes(types)
 window.setInterval(onInterval, 7000)
 
 function onInterval() {
+
     var new_lengths = types.map(type => document.querySelectorAll(type).length)
     for (x=0; x<new_lengths.length; x++) {
         if (new_lengths[x] != lengths[x]) {
