@@ -1,5 +1,6 @@
 function tryModifyInput(element, event){ 
     if (event.key == ".") {
+        console.log("event key pressed: " + event.key)
         tryParse(element);         
     }
 }
@@ -13,7 +14,6 @@ async function tryParse(element) {
             while (j < element.value.length && element.value[j]!= ">") { j += 1 }
             if (j  != element.value.length) { 
                 await tryReplace(element, i, j)
-                console.log(element.value) 
             }
             handled = true
         }
@@ -30,7 +30,7 @@ function getValue(key) {
         chrome.storage.sync.get(key, function(result) {
             resolve(result)
         })
-    })
+    }, 2000)
 }
 
 async function tryReplace(element, starting, ending) {
@@ -50,8 +50,9 @@ function addListenerToType(type) {
     for (x=0;x<elements.length; x++) {
         element = elements[x]
         try {
-            element.addEventListener('keydown', function(e) {
-                tryModifyInput(this, e)
+            element.addEventListener('keydown', function(event) {
+                event.stopImmediatePropagation()
+                tryModifyInput(this, event)
             })
         }
         catch {
@@ -66,15 +67,11 @@ function addListenersToTypes(types) {
 }
 var types = ["input","textarea"]
 var lengths = types.map(type => document.querySelectorAll(type).length)
-console.log(lengths)
 addListenersToTypes(types)
 window.setInterval(onInterval, 7000)
 
 function onInterval() {
-    console.log("on interval")
     var new_lengths = types.map(type => document.querySelectorAll(type).length)
-    console.log("new lengths")
-    console.log(new_lengths)
     for (x=0; x<new_lengths.length; x++) {
         if (new_lengths[x] != lengths[x]) {
             lengths[x] = new_lengths[x]
