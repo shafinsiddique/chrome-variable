@@ -1,3 +1,7 @@
-# chrome-extension
+# Chrome Variable - A Chrome Extension
 
-A chrome extension for simplifying form fillups.
+Define variables in chrome and reuse them anywhere at anytime.
+
+![](demo.gif)
+
+

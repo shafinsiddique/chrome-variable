@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
-    "name": "chrome-extension",
-    "description": "a chrome extension for simplifying processes in forms.",
+    "name": "Chrome Variable",
+    "description": "Define variables in chrome and reuse them anywhere.",
     "version": "1.0",
     "browser_action":{
         "default_icon":"icon.png",
@@ -15,4 +15,7 @@
         }
       ],
     "permissions":["storage"],
-  }
+    "icons":{"16":"icon.png",
+    "48":"icon.png",
+    "128":"icon.png"}
+    }
