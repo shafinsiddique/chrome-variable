@@ -1,6 +1,8 @@
-# Chrome Variable - A Chrome Extension
+![](icon.png)
 
-Define variables in chrome and reuse them anywhere at anytime.
+# chrome-variable
+
+### Define variables in chrome and reuse them anywhere at anytime.
 
 ![](demo.gif)
 
