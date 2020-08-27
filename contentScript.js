@@ -77,7 +77,6 @@ function onInterval() {
     console.log(new_lengths)
     for (x=0; x<new_lengths.length; x++) {
         if (new_lengths[x] != lengths[x]) {
-            console.log("new length found")
             lengths[x] = new_lengths[x]
             addListenerToType(types[x])
         }
