@@ -64,15 +64,20 @@ function addListenerToType(type) {
 function addListenersToTypes(types) {
     types.forEach(type => addListenerToType(type))
 }
-var types = ["input","textarea", "[contenteditable=true]"]
+var types = ["input","textarea"]
 var lengths = types.map(type => document.querySelectorAll(type).length)
+console.log(lengths)
 addListenersToTypes(types)
 window.setInterval(onInterval, 7000)
 
 function onInterval() {
+    console.log("on interval")
     var new_lengths = types.map(type => document.querySelectorAll(type).length)
+    console.log("new lengths")
+    console.log(new_lengths)
     for (x=0; x<new_lengths.length; x++) {
         if (new_lengths[x] != lengths[x]) {
+            console.log("new length found")
             lengths[x] = new_lengths[x]
             addListenerToType(types[x])
         }
