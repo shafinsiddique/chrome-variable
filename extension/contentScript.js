@@ -1,5 +1,6 @@
 function tryModifyInput(element, event){ 
     if (event.key == ".") {
+        console.log("period pressed")
         tryParse(element);         
     }
 }
@@ -51,6 +52,7 @@ function addListenerToType(type) {
         element = elements[x]
         try {
             element.addEventListener('keydown', function(event) {
+                console.log("key pressed")
                 event.stopImmediatePropagation()
                 tryModifyInput(this, event)
             })
@@ -68,10 +70,9 @@ function addListenersToTypes(types) {
 var types = ["input","textarea"]
 var lengths = types.map(type => document.querySelectorAll(type).length)
 addListenersToTypes(types)
-window.setInterval(onInterval, 7000)
+setInterval(onInterval, 7000)
 
 function onInterval() {
-
     var new_lengths = types.map(type => document.querySelectorAll(type).length)
     for (x=0; x<new_lengths.length; x++) {
         if (new_lengths[x] != lengths[x]) {
