@@ -70,7 +70,8 @@ function checkIfGreenhouse() {
     var iFrame = document.getElementById("grnhse_iframe")
     if (iFrame != null) {
         alert("Message From Chrome Variable: \n\nThis site is using an embedded form from boards.greenhouse.io. " +
-        "In order to use chrome variables in the form, please head to the actual form link at : " + iFrame.src)
+        "In order to use chrome variables, please use the form on the tab that will be opened following this message");
+        window.open(iFrame.src)
     }
 }
 
@@ -90,7 +91,6 @@ window.onload = function() {
     checkIfGreenhouse()
     types = ["input","textarea"]
     lengths = types.map(type => document.querySelectorAll(type).length)
-    console.log(lengths)
     addListenersToTypes(types)
     setInterval(onInterval, 7000)
 }
