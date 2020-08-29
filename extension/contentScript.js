@@ -1,12 +1,11 @@
 function tryModifyInput(element, event){ 
     if (event.key == ".") {
-        console.log("period pressed")
         tryParse(element);         
     }
 }
 
 async function tryParse(element) {
-    i = 0
+    var i = 0
     var handled
     while (i < element.value.length) {
         if (element.value[i] == "<") {
@@ -33,7 +32,7 @@ function getValue(key) {
 }
 
 async function tryReplace(element, starting, ending) {
-    variableName = element.value.substring(starting+1, ending)
+    var variableName = element.value.substring(starting+1, ending)
     alreadyReplaced = false
     var value = await getValue(variableName)
     var key_value = Object.entries(value)[0]
@@ -52,7 +51,6 @@ function addListenerToType(type) {
         element = elements[x]
         try {
             element.addEventListener('keydown', function(event) {
-                console.log("key pressed")
                 event.stopImmediatePropagation()
                 tryModifyInput(this, event)
             })
@@ -67,10 +65,14 @@ function addListenerToType(type) {
 function addListenersToTypes(types) {
     types.forEach(type => addListenerToType(type))
 }
-var types = ["input","textarea"]
-var lengths = types.map(type => document.querySelectorAll(type).length)
-addListenersToTypes(types)
-setInterval(onInterval, 7000)
+
+function checkIfGreenhouse() {
+    var iFrame = document.getElementById("grnhse_iframe")
+    if (iFrame != null) {
+        alert("Message From Chrome Variable: \n\nThis site is using an embedded form from boards.greenhouse.io. " +
+        "In order to use chrome variables in the form, please head to the actual form link at : " + iFrame.src)
+    }
+}
 
 function onInterval() {
     var new_lengths = types.map(type => document.querySelectorAll(type).length)
@@ -82,6 +84,19 @@ function onInterval() {
     }
 
 }
+
+
+window.onload = function() {
+    checkIfGreenhouse()
+    types = ["input","textarea"]
+    lengths = types.map(type => document.querySelectorAll(type).length)
+    console.log(lengths)
+    addListenersToTypes(types)
+    setInterval(onInterval, 7000)
+}
+
+
+
 
 
 
