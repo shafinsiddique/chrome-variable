@@ -58,11 +58,16 @@ function outputValue(element, value) {
     text.value = value
     element.appendChild(text)
     addLineBreaks(element, 1)
-    var copy = document.createElement("button")
+    copy = document.createElement("button")
     copy.classList.add("btn")
     copy.classList.add("btn-primary")
     copy.innerText = "Copy to clipboard"
-    copy.addEventListener("click", (event) => copyToClipboard(value))
+    copy.addEventListener("click", (event) => {
+        copy.innerText = "Copied."
+        copy.classList.add("btn-secondary")
+        copy.disabled = true
+        copyToClipboard(value)
+    })
 
     element.appendChild(copy)
 }
