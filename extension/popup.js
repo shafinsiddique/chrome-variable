@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded',function() {
 function tryGetValue(){ 
     var form = document.querySelectorAll("form")[1]
     var key = form.elements.namedItem("lookup").value
-    if (key!= null) {
+    if (key != null) {
         chrome.storage.sync.get(key, function(result) {
             var key_value = Object.entries(result)[0]
             if (key_value != undefined){ 
@@ -27,10 +27,6 @@ function tryGetValue(){
             }
         })
     }
-
-    else {
-
-    }
 }
 
 function copyToClipboard(text) {
@@ -41,8 +37,16 @@ function copyToClipboard(text) {
     console.error('Could not copy text: ', err);
   });
 }
+
+function clearChildNodes(element)  {
+    while (element.firstChild) {
+        element.firstChild.remove();
+    }
+}
 function sendValue(value = null) {
     var valueElement = document.getElementById("lookup-value")
+    clearChildNodes(valueElement)
+    valueElement.clea
     var text = document.createElement("p")
     if (value != null) {
         var copy = document.createElement("button")
