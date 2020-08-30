@@ -61,14 +61,15 @@ function sendOutput(valid, deleted) {
 }
 
 function setButtonListeners(key, value) {
-    var edit = document.getElementById("edit")
-    var del = document.getElementById("delete")
+    edit = document.getElementById("edit")
+    del = document.getElementById("delete")
     edit.addEventListener("click", (ev) => {
         onChanges()
     })
 
     del.addEventListener("click", (ev) => {
         delKey(key)
+        del.disabled = true
         sendOutput(true, true)
 
     })
