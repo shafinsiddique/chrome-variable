@@ -21,7 +21,7 @@ function onChanges() {
     var new_value = valueObj.value
     var original_key = keyObj.defaultValue
 
-    if (new_value != "" && new_key != "" ) {
+    if (new_value.trim() && new_key.trim() ) {
         if (new_key != original_key) {
             delKey(original_key)
         }
@@ -32,7 +32,6 @@ function onChanges() {
 
     else {
         sendOutput(false, false)
-
     }
 }
 
@@ -75,7 +74,6 @@ function setButtonListeners(key, value) {
     })
 }
 function onEdit(k, v) {
-    console.log("on edit")
     modal = document.querySelector(".modal")
     modal.style.display = "block"
     window.onclick = function(e){

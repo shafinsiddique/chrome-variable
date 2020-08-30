@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded',function() {
 function tryGetValue(){ 
     var form = document.querySelectorAll("form")[1]
     var key = form.elements.namedItem("lookup").value
-    if (key != null) {
+    if (key.trim()) {
         chrome.storage.sync.get(key, function(result) {
             var key_value = Object.entries(result)[0]
             if (key_value != undefined){ 
@@ -71,7 +71,7 @@ function tryStoreValue() {
     var form = document.querySelectorAll("form")[0]
     var key = form.elements.namedItem("key").value
     var value = form.elements.namedItem("value").value
-    if (key != "" && value != "" ) {
+    if (key.trim() && value.trim()) {
         chrome.storage.sync.set({[key]: value}, () => sendOutput(true))
     }
     else {
