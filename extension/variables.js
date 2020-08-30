@@ -36,8 +36,15 @@ function onChanges() {
     }
 }
 
+function clearChildNodes(element) {
+    while (element.firstChild) {
+        element.firstChild.remove()
+    }
+}
+
 function sendOutput(valid, deleted) {
     element = document.getElementById("message")
+    clearChildNodes(element)
     if (valid) {
         if (deleted) {
             html = "<p>variable has been deleted</p>"
@@ -74,6 +81,7 @@ function onEdit(k, v) {
     window.onclick = function(e){
         if(e.target == modal){
             modal.style.display = "none"
+            location.reload()
         }
     
     var form = document.querySelectorAll("form")[0]
