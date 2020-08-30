@@ -23,7 +23,7 @@ function tryGetValue(){
             }
 
             else {
-                console.log("value not found")
+                sendValue(null)
             }
         })
     }
@@ -33,11 +33,35 @@ function tryGetValue(){
     }
 }
 
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text)
+    .then(() => {
+    })
+  . catch(err => {
+    console.error('Could not copy text: ', err);
+  });
+}
 function sendValue(value = null) {
     var valueElement = document.getElementById("lookup-value")
+    var text = document.createElement("p")
     if (value != null) {
-        valueElement.innerHTML = "<p>" + value + "</p>"
+        var copy = document.createElement("button")
+        copy.classList.add("btn")
+        copy.classList.add("btn-link")
+        copy.innerText = "copy"
+        copy.addEventListener("click", (event) => copyToClipboard(value))
+        valueElement.appendChild(copy)
+        textBody = value
+
     }
+
+    else {
+        textBody = "variable not found"
+        text.classList.add("red-font")
+    }
+
+    text.appendChild(document.createTextNode(textBody))
+    valueElement.appendChild(text)
 }
 function tryStoreValue() {
     var form = document.querySelectorAll("form")[0]
