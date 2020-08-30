@@ -70,6 +70,7 @@ function setButtonListeners(key, value) {
     del.addEventListener("click", (ev) => {
         delKey(key)
         del.disabled = true
+        edit.disabled = true
         sendOutput(true, true)
 
     })
