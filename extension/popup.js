@@ -43,29 +43,43 @@ function clearChildNodes(element)  {
         element.firstChild.remove();
     }
 }
+
+function addLineBreaks(element, count) {
+    for (x =0; x<count; x++) {
+        element.appendChild(document.createElement("br"))
+    }
+}
+
+function outputValue(element, value) {
+    text = document.createElement("textarea")
+    text.classList.add("form-control")
+    text.setAttribute("rows","4")
+    text.setAttribute("readonly","true")
+    text.value = value
+    element.appendChild(text)
+    addLineBreaks(element, 1)
+    var copy = document.createElement("button")
+    copy.classList.add("btn")
+    copy.classList.add("btn-primary")
+    copy.innerText = "Copy to clipboard"
+    copy.addEventListener("click", (event) => copyToClipboard(value))
+
+    element.appendChild(copy)
+}
+
+
 function sendValue(value = null) {
     var valueElement = document.getElementById("lookup-value")
     clearChildNodes(valueElement)
-    valueElement.clea
-    var text = document.createElement("p")
     if (value != null) {
-        var copy = document.createElement("button")
-        copy.classList.add("btn")
-        copy.classList.add("btn-link")
-        copy.innerText = "copy"
-        copy.addEventListener("click", (event) => copyToClipboard(value))
-        valueElement.appendChild(copy)
-        textBody = value
+        outputValue(valueElement, value)
 
     }
-
     else {
-        textBody = "variable not found"
-        text.classList.add("red-font")
+        valueElement.innerHTML = "<p class='red-font'>variable not found</p>"
+
     }
 
-    text.appendChild(document.createTextNode(textBody))
-    valueElement.appendChild(text)
 }
 function tryStoreValue() {
     var form = document.querySelectorAll("form")[0]
