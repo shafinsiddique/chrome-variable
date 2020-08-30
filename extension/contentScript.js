@@ -83,9 +83,7 @@ function onInterval() {
             addListenerToType(types[x])
         }
     }
-
 }
-
 
 window.onload = function() {
     checkIfGreenhouse()
