@@ -33,12 +33,10 @@ function getValue(key) {
 
 async function tryReplace(element, starting, ending) {
     var variableName = element.value.substring(starting+1, ending)
-    alreadyReplaced = false
     var value = await getValue(variableName)
     var key_value = Object.entries(value)[0]
-    if (key_value != undefined && !alreadyReplaced){ 
-        alreadyReplaced = true
-        element.value = element.value.substring(0, starting) + key_value[1] + element.value.substring(ending+1, 
+    if (key_value != undefined){
+        element.value = element.value.substring(0, starting) + key_value[1] + element.value.substring(ending+1,
             element.value.length)
             return true
     }
@@ -51,7 +49,6 @@ function addListenerToType(type) {
         element = elements[x]
         try {
             element.addEventListener('keydown', function(event) {
-                event.stopImmediatePropagation()
                 tryModifyInput(this, event)
             })
         }
